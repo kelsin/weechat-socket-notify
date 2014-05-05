@@ -29,7 +29,7 @@ require 'base64'
 SCRIPT_NAME = 'socket_notify'
 SCRIPT_AUTHOR = 'Christopher Giroir <kelsin@valefor.com>'
 SCRIPT_DESC = 'Send highlights and private message to a unix socket'
-SCRIPT_VERSION = '0.0.1'
+SCRIPT_VERSION = '0.0.2'
 SCRIPT_LICENSE = 'MIT'
 
 SOCKET = '/tmp/weechat.notify.sock'
@@ -57,7 +57,7 @@ def hilite(data, buffer, date, tags, visible, highlight, prefix, message)
     end
 
     if data[:type] == "channel"
-      subtitle = "#{data[:server]}##{data[:channel]} Highlight"
+      subtitle = "#{data[:server]}#{data[:channel]} Highlight"
       send(subtitle, message)
     end
   end
