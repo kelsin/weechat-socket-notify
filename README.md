@@ -24,10 +24,14 @@ installed (with [homebrew](http://brew.sh/)) by running:
 
 Then I read and react to these notifications with the follow bash functions:
 
+Change localhost to the remote machine where weechat is running
+
+    WEEHOST=localhost
+
     function irc-notification {
       TYPE=$1
       MSG=$2
-    
+
       terminal-notifier \
         -title IRC \
         -subtitle "$TYPE" \
@@ -39,9 +43,9 @@ Then I read and react to these notifications with the follow bash functions:
         -sound default \
         -group IRC
     }
-    
+
     function get-irc-notifications {
-      ssh remote.host.net 'nc -k -l -U /tmp/weechat.notify.sock' | \
+      ssh $WEEHOST 'killall nc ; rm -rf /tmp/weechat.notify.sock ; nc -k -l -U /tmp/weechat.notify.sock' | \
         while read type message; do
           irc-notification "$(echo -n $type | base64 -D -)" "$(echo -n $message | base64 -D -)"
         done
